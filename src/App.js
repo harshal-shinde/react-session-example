@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(()=>{
+
+    var pageView = sessionStorage.getItem("pageView");
+    if(pageView ==null) {
+      pageView = 1;
+    }else{
+      pageView = Number(pageView) +1;
+    }
+    //Update session storage
+    sessionStorage.setItem("pageItem", pageView)
+    setCount(pageView);
+  },[]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div> Page view count is :</div>
+      {count}
     </div>
   );
 }
